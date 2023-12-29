@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+:root {
+  --default-font-size: 15px;
+  --default-border-radius: 9px;
+  --default-border-width: 2px;
+
+  --color-main-text: #bfbfbf;
+  --color-main-background: #171717;
+  --color-border-dark: #292929;
+  --color-border: #3b3b3b;
+  --color-box-shadow: #000000;
+  --bs-border-color: var(--color-border);
+
+
+  --dark-blue: #212636;
+  --blue: #4f5b82;
+  --brown: #614f4b;
+  --dark-green: #598534;
+  --green: #85C44D;
+  --yellow: #dec267;
+  --sand: #f4f1da;
+
+  --nav-tabs-border-color: var(--color-border);
+  --nav-tabs-link-active-color: var(--dark-green);
+
+  --form-range-track-bg: var(--green)!important;
+}
+
+.material-icons-two-tone {
+  font-size: 20px;
+  vertical-align: text-top;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+html, body {
+  background-color: var(--brown);
+  color: var(--color-main-text);
+  font-family: 'Quicksand', sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--green);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border: 2px solid var(--green);
+  border-radius: var(--default-border-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-main-background);
+}
+
+::-moz-selection { /* Code for Firefox */
+  color: var(--color-main-background);
+  background: var(--green);
+}
+
+::selection {
+  color: var(--color-main-background);
+  background: var(--green);
+}
+
+.form-range::-webkit-slider-thumb {
+  background: var(--green);
+
+  .form-range::-moz-range-thumb {
+    background: var(--green);
+  }
+
+  .form-range::-ms-thumb {
+    background: var(--green);
+  }
+}
+
+.card {
+  color: #fff;
+  border-radius: var(--default-border-radius);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card-subtitle {
+  font-weight: bold;
+}
+
+a {
+  color: var(--color-main-text)
+}
+
+a:hover {
+  color: var(--color-main-text)
+}
+
+.form-control {
+  background-color: var(--color-main-background);
+  color: var(--color-main-text);
+  border-width: var(--default-border-width);
+  border-radius: var(--default-border-radius);
+  border-color: var(--color-border);
+}
+
+.form-control:hover {
+  border-color: var(--green);
+}
+
+.form-control:focus {
+  border-color: var(--green);
+  background-color: var(--color-main-background);
+  box-shadow: 0 0 0;
+  color: var(--color-main-text);
+}
+
+.form-label {
+  margin-bottom: 0.15rem;
+}
+
+.alert-danger {
+  color: white;
+  background-color: #e35d6a;
+  border-width: 0;
+  border-radius: var(--default-border-radius);
+}
+
+.btn {
+  border-radius: var(--default-border-radius);
+}
+
+.btn-primary {
+  color: var(--color-main-background);
+  font-weight: bold;
+  background-color: var(--green);
+  border-width: 0;
+}
+
+.btn-primary:hover {
+  background-color: var(--dark-green);
+}
+
+.btn-primary:focus {
+  background-color: var(--dark-green);
+}
+
+.btn-primary:active {
+  background-color: var(--dark-green)!important;
+}
+
+.btn-link {
+  color: var(--color-main-text)
+}
+
+.btn-link:hover {
+  color: var(--color-main-text)
+}
+
+.green-text {
+  color: var(--green);
+}
+
+.nav-link {
+  color: var(--color-main-text)!important;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  border-color: var(--green) var(--green) var(--color-border) var(--green) !important;
+}
+
+.nav-link.active {
+  background-color: var(--green)!important;
+  border-color: var(--color-border)!important;
+  color: black!important;
+  font-weight: bold;
+}
+
+.nav-tabs {
+  border-bottom-style: dashed;
+}
+
+.form-text {
+  color: var(--color-main-text);
+}
+
+.input-group-text {
+  color: var(--color-main-text)!important;
+  background-color: var(--color-main-background)!important;
+}
+
+
