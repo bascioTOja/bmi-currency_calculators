@@ -18,13 +18,13 @@
             </div>
             <div class="row mb-3">
               <div class="col-8">
-                <label for="height" class="form-label">Wzrost</label>
-                <input v-model="age" type="range" id="heightRange" min="18" max="80" step="1" class="form-range">
+                <label for="age" class="form-label">Wiek</label>
+                <input v-model="age" type="range" id="ageRange" min="18" max="80" step="1" class="form-range">
               </div>
               <div class="col-4 text-center d-flex align-items-center">
                 <div class="w-100">
                   <div class="input-group mb-3">
-                    <input v-model="age" type="number" name="height" id="height" min="18" max="80" class="form-control">
+                    <input v-model="age" type="number" name="age" id="age" min="18" max="80" class="form-control">
                     <span class="input-group-text">lat</span>
                   </div>
                 </div>
