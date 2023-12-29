@@ -38,29 +38,32 @@
                 <button class="btn btn-primary w-100" @click="convertCurrency()">Przelicz na {{ getSelectedCurrencyName() }}</button>
               </div>
             </div>
+            <div class="row">
+              <span v-if="! amountValid" class="text-danger">Kwota musi być większa niż 0<template v-if="this.amount > 9007199254740991"> oraz mniejsze niż 9007199254740991</template>.</span>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-lg-6">
         <div class="d-flex flex-column">
-<!--          <div class="w-100 mb-5">-->
-<!--            <span class="green-text">Kalkulator BMI (Body Mass Index)</span> jest narzędziem, które pozwala obliczyć wskaźnik masy ciała. BMI to miara, która określa, czy nasza waga dla naszego wzrostu jest odpowiednia.-->
-<!--          </div>-->
-          <div>
-            <div class="summary" v-if="showSummary">
-              <div class="row mb-5">
-                <div class="col-lg-12">Aktualne kursy na dzień {{ currentCurrency.effectiveDate }}</div>
-                <div class="col-lg-6">
-                  Kupno {{ currentCurrency.text }} (Bid): <span class="green-text fs-5">{{ currentCurrency.bid }}</span>
-                </div>
-                <div class="col-lg-6">
-                  Sprzedaż {{ currentCurrency.text }} (Ask): <span class="green-text fs-5">{{ currentCurrency.ask }}</span>
-                </div>
+          <div class="summary" v-if="showSummary && amountValid">
+            <div class="row mb-5">
+              <div class="col-lg-12">Aktualne kursy na dzień {{ currentCurrency.effectiveDate }}</div>
+              <div class="col-lg-6">
+                Kupno {{ currentCurrency.text }} (Bid): <span class="green-text fs-5">{{ currentCurrency.bid }}</span>
               </div>
-              <div>
-                <p>Za <span class="green-text fs-5">{{ amount }} PLN</span> możesz kupić <span class="green-text fs-5">{{ (amount / currentCurrency.bid).toFixed(2) }} {{ currentCurrency.text }}</span></p>
-                <p>Możesz sprzedać <span class="green-text fs-5">{{ (amount / currentCurrency.ask).toFixed(2) }} {{ currentCurrency.text }}</span> za <span class="green-text fs-5">{{ amount }} PLN</span></p>
+              <div class="col-lg-6">
+                Sprzedaż {{ currentCurrency.text }} (Ask): <span class="green-text fs-5">{{ currentCurrency.ask }}</span>
               </div>
+            </div>
+            <div>
+              <p>Za <span class="green-text fs-5">{{ amount }} PLN</span> możesz kupić <span class="green-text fs-5">{{ (amount / currentCurrency.bid).toFixed(2) }} {{ currentCurrency.text }}</span></p>
+              <p>Możesz sprzedać <span class="green-text fs-5">{{ (amount / currentCurrency.ask).toFixed(2) }} {{ currentCurrency.text }}</span> za <span class="green-text fs-5">{{ amount }} PLN</span></p>
+            </div>
+          </div>
+          <div class="summary d-flex flex-column items-center" v-else>
+            <div>
+                Tutaj pojawi się wynik po przeliczeniu.
             </div>
           </div>
         </div>
@@ -78,7 +81,8 @@ export default {
   name: 'CurrencyConverter',
   data() {
     return {
-      amount: 0,
+      amount: 1,
+      amountValid: true,
       selectedCurrency: 'usd',
       currentCurrency: null,
       currencies: [
@@ -142,6 +146,9 @@ export default {
     selectedCurrency: function () {
       this.showSummary = false;
       this.updateCurrentCurrency();
+    },
+    amount: function () {
+      this.amountValid = this.amount > 0 && this.amount <= 9007199254740991;
     },
   },
 };
