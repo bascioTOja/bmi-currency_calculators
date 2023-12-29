@@ -39,7 +39,7 @@
               </div>
             </div>
             <div class="row">
-              <span v-if="! amountValid" class="text-danger">Kwota musi być większa niż 0<template v-if="this.amount > 9007199254740991"> oraz mniejsze niż 9007199254740991</template>.</span>
+              <span v-if="! amountValid" class="text-danger">Kwota musi być większa lub równe 0.01<template v-if="this.amount > 9007199254740991"> oraz mniejsze niż 9007199254740991</template>.</span>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
               <p>Możesz sprzedać <span class="green-text fs-5">{{ (amount / currentCurrency.ask).toFixed(2) }} {{ currentCurrency.text }}</span> za <span class="green-text fs-5">{{ amount }} PLN</span></p>
             </div>
           </div>
-          <div class="summary d-flex flex-column items-center" v-else>
+          <div class="summary d-flex flex-column align-items-center" v-else>
             <div>
                 Tutaj pojawi się wynik po przeliczeniu.
             </div>
@@ -148,7 +148,7 @@ export default {
       this.updateCurrentCurrency();
     },
     amount: function () {
-      this.amountValid = this.amount > 0 && this.amount <= 9007199254740991;
+      this.amountValid = this.amount >= 0.01 && this.amount <= 9007199254740991;
     },
   },
 };
