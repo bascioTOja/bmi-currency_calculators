@@ -219,13 +219,13 @@
         if(this.bmi < categories[2]) {
           bmiLineYouTag.html('Niedowaga');
         } else if (this.bmi < categories[3]) {
-          bmiLineYouTag.html('Normalna waga');
+          bmiLineYouTag.html('Normalna waga');
         } else if (this.bmi < categories[4]) {
           bmiLineYouTag.html('Nadwaga');
         } else if (this.bmi < categories[5]) {
           bmiLineYouTag.html('Otyłość');
         } else {
-          bmiLineYouTag.html('Ciężka otyłość');
+          bmiLineYouTag.html('Ciężka otyłość');
         }
 
         location = location - ($('.bmi-line-you-tag').width() / 12);
