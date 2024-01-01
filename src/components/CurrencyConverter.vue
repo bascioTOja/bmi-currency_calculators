@@ -50,15 +50,15 @@
             <div class="row mb-5">
               <div class="col-lg-12">Aktualne kursy na dzień {{ currentCurrency.effectiveDate }}</div>
               <div class="col-lg-6">
-                Kupno {{ currentCurrency.text }} (Bid): <span class="green-text fs-5">{{ currentCurrency.bid }}</span>
+                Kupno {{ currentCurrency.text }} (Ask): <span class="green-text fs-5">{{ currentCurrency.ask }}</span>
               </div>
               <div class="col-lg-6">
-                Sprzedaż {{ currentCurrency.text }} (Ask): <span class="green-text fs-5">{{ currentCurrency.ask }}</span>
+                Sprzedaż {{ currentCurrency.text }} (Bid): <span class="green-text fs-5">{{ currentCurrency.bid }}</span>
               </div>
             </div>
             <div>
-              <p>Za <span class="green-text fs-5">{{ amount }} PLN</span> możesz kupić <span class="green-text fs-5">{{ (amount / currentCurrency.bid).toFixed(2) }} {{ currentCurrency.text }}</span></p>
-              <p>Możesz sprzedać <span class="green-text fs-5">{{ (amount / currentCurrency.ask).toFixed(2) }} {{ currentCurrency.text }}</span> za <span class="green-text fs-5">{{ amount }} PLN</span></p>
+              <p>Za <span class="green-text fs-5">{{ amount }} PLN</span> możesz kupić <span class="green-text fs-5">{{ (amount / currentCurrency.ask).toFixed(2) }} {{ currentCurrency.text }}</span></p>
+              <p>Możesz sprzedać <span class="green-text fs-5">{{ (amount / currentCurrency.bid).toFixed(2) }} {{ currentCurrency.text }}</span> za <span class="green-text fs-5">{{ amount }} PLN</span></p>
             </div>
           </div>
           <div class="summary d-flex flex-column align-items-center" v-else>
