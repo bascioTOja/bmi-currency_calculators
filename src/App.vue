@@ -11,11 +11,9 @@
           </li>
         </ul>
         <div class="tab-content content" id="myTabContent">
-          <!-- BMI -->
           <div class="tab-pane fade show active" id="bmi" role="tabpanel" aria-labelledby="bmi-tab">
             <BmiCalculator></BmiCalculator>
           </div>
-          <!-- Kalkulator walutowy -->
           <div class="tab-pane fade" id="currencies" role="tabpanel" aria-labelledby="currencies-tab">
             <CurrencyConverter></CurrencyConverter>
           </div>
@@ -38,23 +36,6 @@
     padding-left: 0;
   }
 
-  .content-header {
-    border-bottom-color: var(--color-border);
-    border-bottom-style: dashed;
-    padding: 10px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: space-between;
-    align-items: center
-  }
-
-  .content-header-title {
-    font-weight: bold;
-    font-size: calc(var(--default-font-size) * 1.5);
-  }
-
   .content {
     padding: 15px;
   }
@@ -66,11 +47,5 @@
 
   export default {
     components: {BmiCalculator, CurrencyConverter},
-    data() {
-    },
-    methods: {
-    },
-    mounted() {
-    },
   }
 </script>
