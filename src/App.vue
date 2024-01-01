@@ -3,11 +3,11 @@
     <div id="content" class="main">
       <div class="container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item col-lg-6" role="presentation">
+          <li class="nav-item w-50" role="presentation">
             <button class="nav-link w-100 active" id="bmi-tab" data-bs-toggle="tab" data-bs-target="#bmi" type="button" role="tab" aria-controls="bmi" aria-selected="true">Kalkulator BMI</button>
           </li>
-          <li class="nav-item col-lg-6" role="presentation">
-            <button class="nav-link w-100" id="currencies-tab" data-bs-toggle="tab" data-bs-target="#currencies" type="button" role="tab" aria-controls="currencies" aria-selected="false">Kalkulator Walutowy</button>
+          <li class="nav-item w-50" role="presentation">
+            <button class="nav-link w-100" id="currencies-tab" data-bs-toggle="tab" data-bs-target="#currencies" type="button" role="tab" aria-controls="currencies" aria-selected="false">Kantor Walutowy</button>
           </li>
         </ul>
         <div class="tab-content content" id="myTabContent">
