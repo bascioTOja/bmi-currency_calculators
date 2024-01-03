@@ -6,13 +6,13 @@
           <div class="col-lg-10 row">
             <div class="row mb-3">
               <div class="col-12">
-                <label for="amount" class="form-label">Kwota</label>
+                <label class="form-label" for="amount">Kwota</label>
               </div>
               <div class="col-12">
                 <div class="text-center d-flex align-items-center">
                   <div class="w-100">
                     <div class="input-group mb-3">
-                      <input v-model="amount" type="number" name="amount" id="amount" min="0" class="form-control">
+                      <input id="amount" v-model="amount" class="form-control" min="0" name="amount" type="number">
                       <span class="input-group-text">PLN</span>
                     </div>
                   </div>
@@ -21,12 +21,12 @@
             </div>
             <div class="row mb-3">
               <div class="col-12">
-                <label for="selectedCurrency" class="form-label">Wybierz walutę</label>
+                <label class="form-label" for="selectedCurrency">Wybierz walutę</label>
               </div>
               <div class="col-12 text-center d-flex align-items-center">
                 <div class="w-100">
                   <div class="input-group mb-3">
-                    <select v-model="selectedCurrency" name="selectedCurrency" id="selectedCurrency" class="form-control">
+                    <select id="selectedCurrency" v-model="selectedCurrency" class="form-control" name="selectedCurrency">
                       <option v-for="currency in currencies" :value="currency.value">{{ currency.text }}</option>
                     </select>
                   </div>
@@ -46,7 +46,7 @@
       </div>
       <div class="col-lg-6">
         <div class="d-flex flex-column">
-          <div class="summary" v-if="showSummary && amountValid">
+          <div v-if="showSummary && amountValid" class="summary">
             <div class="row mb-5">
               <div class="col-lg-12">Aktualne kursy na dzień {{ currentCurrency.effectiveDate }}</div>
               <div class="col-lg-6">
@@ -61,9 +61,9 @@
               <p>Możesz sprzedać <span class="green-text fs-5">{{ (amount / currentCurrency.bid).toFixed(2) }} {{ currentCurrency.text }}</span> za <span class="green-text fs-5">{{ amount }} PLN</span></p>
             </div>
           </div>
-          <div class="summary d-flex flex-column align-items-center" v-else>
+          <div v-else class="summary d-flex flex-column align-items-center">
             <div>
-                Tutaj pojawi się wynik po przeliczeniu.
+              Tutaj pojawi się wynik po przeliczeniu.
             </div>
           </div>
         </div>
@@ -86,12 +86,12 @@ export default {
       selectedCurrency: 'usd',
       currentCurrency: null,
       currencies: [
-          { text: 'USD', value: 'usd', bid: null, ask: null, effectiveDate: null},
-          { text: 'EUR', value: 'eur', bid: null, ask: null, effectiveDate: null},
-          { text: 'GBP', value: 'gbp', bid: null, ask: null, effectiveDate: null},
-          { text: 'CHF', value: 'chf', bid: null, ask: null, effectiveDate: null},
-          { text: 'NOK', value: 'nok', bid: null, ask: null, effectiveDate: null},
-          { text: 'JPY', value: 'jpy', bid: null, ask: null, effectiveDate: null},
+        {text: 'USD', value: 'usd', bid: null, ask: null, effectiveDate: null},
+        {text: 'EUR', value: 'eur', bid: null, ask: null, effectiveDate: null},
+        {text: 'GBP', value: 'gbp', bid: null, ask: null, effectiveDate: null},
+        {text: 'CHF', value: 'chf', bid: null, ask: null, effectiveDate: null},
+        {text: 'NOK', value: 'nok', bid: null, ask: null, effectiveDate: null},
+        {text: 'JPY', value: 'jpy', bid: null, ask: null, effectiveDate: null},
       ],
       showSummary: false,
     };
@@ -137,7 +137,7 @@ export default {
       }
 
       this.showSummary = true;
-    }
+    },
   },
   mounted() {
     this.updateCurrentCurrency();

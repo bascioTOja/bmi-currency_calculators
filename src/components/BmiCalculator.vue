@@ -5,12 +5,12 @@
         <div class="d-flex justify-content-center">
           <div class="col-lg-10 row">
             <div class="row mb-3">
-              <input v-model="sex" type="radio" class="btn-check" name="sex" id="sex-male" autocomplete="off" value="male">
+              <input id="sex-male" v-model="sex" autocomplete="off" class="btn-check" name="sex" type="radio" value="male">
               <label class="btn btn-outline-secondary sex-button d-flex flex-column align-content-center align-items-center justify-content-center" for="sex-male">
                 <span class="material-symbols-outlined">face</span>
                 <span>Mężczyzna</span>
               </label>
-              <input v-model="sex" type="radio" class="btn-check" name="sex" id="sex-female" autocomplete="off" value="female">
+              <input id="sex-female" v-model="sex" autocomplete="off" class="btn-check" name="sex" type="radio" value="female">
               <label class="btn btn-outline-secondary sex-button d-flex flex-column align-content-center align-items-center justify-content-center" for="sex-female">
                 <span class="material-symbols-outlined">face_3</span>
                 <span>Kobieta</span>
@@ -18,13 +18,13 @@
             </div>
             <div class="row mb-3">
               <div class="col-8">
-                <label for="age" class="form-label">Wiek</label>
-                <input v-model="age" type="range" id="ageRange" min="18" max="80" step="1" class="form-range">
+                <label class="form-label" for="age">Wiek</label>
+                <input id="ageRange" v-model="age" class="form-range" max="80" min="18" step="1" type="range">
               </div>
               <div class="col-4 text-center d-flex align-items-center">
                 <div class="w-100">
                   <div class="input-group mb-3">
-                    <input v-model="age" type="number" name="age" id="age" min="18" max="80" class="form-control">
+                    <input id="age" v-model="age" class="form-control" max="80" min="18" name="age" type="number">
                     <span class="input-group-text">lat</span>
                   </div>
                 </div>
@@ -32,13 +32,13 @@
             </div>
             <div class="row mb-3">
               <div class="col-8">
-                <label for="height" class="form-label">Wzrost</label>
-                <input v-model="height" type="range" id="heightRange" min="130" max="220" step="1" class="form-range">
+                <label class="form-label" for="height">Wzrost</label>
+                <input id="heightRange" v-model="height" class="form-range" max="220" min="130" step="1" type="range">
               </div>
               <div class="col-4 text-center d-flex align-items-center">
                 <div class="w-100">
                   <div class="input-group mb-3">
-                    <input v-model="height" type="number" name="height" id="height" min="130" max="220" class="form-control">
+                    <input id="height" v-model="height" class="form-control" max="220" min="130" name="height" type="number">
                     <span class="input-group-text">cm</span>
                   </div>
                 </div>
@@ -46,13 +46,13 @@
             </div>
             <div class="row mb-3">
               <div class="col-8">
-                <label for="weight" class="form-label">Waga</label>
-                <input v-model="weight" type="range" name="weightRange" min="30" max="250" step="1" class="form-range">
+                <label class="form-label" for="weight">Waga</label>
+                <input v-model="weight" class="form-range" max="250" min="30" name="weightRange" step="1" type="range">
               </div>
               <div class="col-4 text-center d-flex align-items-center">
                 <div class="w-100">
                   <div class="input-group mb-3">
-                    <input v-model="weight" type="number" name="weight" id="weight" min="30" max="250" class="form-control">
+                    <input id="weight" v-model="weight" class="form-control" max="250" min="30" name="weight" type="number">
                     <span class="input-group-text">kg</span>
                   </div>
                 </div>
@@ -95,197 +95,197 @@
 </template>
 
 <style>
-  .sex-button {
-    border-radius: var(--default-border-radius);
-    border-width: var(--default-border-width);
-    border-color: var(--color-border);
-    border-style: dashed;
-    padding: 15px 5px;
-    color: var(--color-main-text);
-    margin: 6px;
-    width: calc(50% - 12px);
-  }
+.sex-button {
+  border-radius: var(--default-border-radius);
+  border-width: var(--default-border-width);
+  border-color: var(--color-border);
+  border-style: dashed;
+  padding: 15px 5px;
+  color: var(--color-main-text);
+  margin: 6px;
+  width: calc(50% - 12px);
+}
 
-  .btn-outline-secondary {
-    --bs-btn-active-bg: var(--green);
-  }
+.btn-outline-secondary {
+  --bs-btn-active-bg: var(--green);
+}
 
-  .bmi-result {
-    font-size: 4em;
-    margin-left: 20px;
-  }
+.bmi-result {
+  font-size: 4em;
+  margin-left: 20px;
+}
 
-  .bmi-line-wrapper {
-    border-width: var(--default-border-width);
-    border-color: var(--color-border);
-    border-style: solid;
-  }
+.bmi-line-wrapper {
+  border-width: var(--default-border-width);
+  border-color: var(--color-border);
+  border-style: solid;
+}
 
-  .bmi-line {
-    height: 25px
-  }
+.bmi-line {
+  height: 25px
+}
 
-  .bmi-line-result {
-    width: 4px;
-    transition: right 150ms ease-in-out 0s;
-  }
+.bmi-line-result {
+  width: 4px;
+  transition: right 150ms ease-in-out 0s;
+}
 
-  .bmi-line-you-tag {
-    background-color: var(--color-main-background);
-    border-radius: var(--default-border-radius);
-    border-width: var(--default-border-width);
-    border-color: var(--color-border);
-    padding-left: 5px;
-    padding-right: 5px;
-    border-style: dashed;
-    transition: right 150ms ease-in-out 0s;
-  }
+.bmi-line-you-tag {
+  background-color: var(--color-main-background);
+  border-radius: var(--default-border-radius);
+  border-width: var(--default-border-width);
+  border-color: var(--color-border);
+  padding-left: 5px;
+  padding-right: 5px;
+  border-style: dashed;
+  transition: right 150ms ease-in-out 0s;
+}
 </style>
 
 <script>
-  export default {
-    name: 'BmiCalculator',
-    data() {
-      return {
-        sex: null,
-        age: 26,
-        ageValid: true,
-        height: 170,
-        heightValid: true,
-        weight: 70,
-        weightValid: true,
-        bmi: null,
-      };
+export default {
+  name: 'BmiCalculator',
+  data() {
+    return {
+      sex: null,
+      age: 26,
+      ageValid: true,
+      height: 170,
+      heightValid: true,
+      weight: 70,
+      weightValid: true,
+      bmi: null,
+    };
+  },
+  methods: {
+    ageIsValid() {
+      const max = 80;
+      const min = 18;
+
+      this.ageValid = this.age && min <= this.age && this.age <= max;
+      return this.ageValid;
     },
-    methods: {
-      ageIsValid() {
-        const max = 80;
-        const min = 18;
+    heightIsValid() {
+      const max = 220;
+      const min = 130;
 
-        this.ageValid = this.age && min <= this.age && this.age <= max;
-        return this.ageValid;
-      },
-      heightIsValid() {
-        const max = 220;
-        const min = 130;
+      this.heightValid = this.height && min <= this.height && this.height <= max;
+      return this.heightValid;
+    },
+    weightIsValid() {
+      const max = 250;
+      const min = 30;
 
-        this.heightValid = this.height && min <= this.height && this.height <= max;
-        return this.heightValid;
-      },
-      weightIsValid() {
-        const max = 250;
-        const min = 30;
+      this.weightValid = this.weight && min <= this.weight && this.weight <= max
+      return this.weightValid;
+    },
+    calculateBMI() {
+      if (this.sex && this.ageValid && this.heightValid && this.weightValid) {
+        this.bmi = Math.round(this.weight / ((this.height / 100) ** 2));
+        $('.bmi-line-you-tag').show();
+        $('.bmi-line-result').show();
+        this.updateBmiTag();
+      } else {
+        this.bmi = null;
+        $('.bmi-line-you-tag').hide();
+        $('.bmi-line-result').hide();
+      }
+    },
+    renderBmiLine() {
+      const widthLine = $('.bmi-line-wrapper').width();
+      const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
+      const min = categories[0];
+      const max = categories[categories.length - 1];
 
-        this.weightValid = this.weight && min <= this.weight && this.weight <= max
-        return this.weightValid;
-      },
-      calculateBMI() {
-        if (this.sex && this.ageValid && this.heightValid && this.weightValid) {
-          this.bmi = Math.round(this.weight / ((this.height / 100) ** 2));
-          $('.bmi-line-you-tag').show();
-          $('.bmi-line-result').show();
-          this.updateBmiTag();
-        } else {
-          this.bmi = null;
-          $('.bmi-line-you-tag').hide();
-          $('.bmi-line-result').hide();
+      categories.forEach(function (from, index) {
+        let to = categories[index + 1];
+        if (!to) {
+          return;
         }
-      },
-      renderBmiLine() {
-        const widthLine = $('.bmi-line-wrapper').width();
-        const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
-        const min = categories[0];
-        const max = categories[categories.length - 1];
+        let width = widthLine * ((to - from) / (max - min));
 
-        categories.forEach(function (from, index) {
-          let to = categories[index+1];
-          if (! to) {
-            return;
-          }
-          let width = widthLine * ((to-from)/(max-min));
+        $('.bmi-line-' + (index + 1)).css('width', width + 'px');
+      });
+    },
+    updateBmiTag() {
+      const bmiLineYouTag = $('.bmi-line-you-tag');
+      const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
+      const min = categories[0];
+      const max = categories[categories.length - 1];
 
-          $('.bmi-line-' + (index + 1)).css('width', width + 'px');
-        });
-      },
-      updateBmiTag() {
-        const bmiLineYouTag = $('.bmi-line-you-tag');
-        const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
-        const min = categories[0];
-        const max = categories[categories.length - 1];
+      let location = Math.min(Math.max(100 - ((this.bmi - min) / (max - min) * 100), 0), 100);
+      $('.bmi-line-result').css('right', (location) + '%');
 
-        let location = Math.min(Math.max(100 - ((this.bmi - min) / (max - min) * 100), 0), 100);
-        $('.bmi-line-result').css('right', (location) + '%');
+      if (this.bmi < categories[2]) {
+        bmiLineYouTag.html('Niedowaga');
+      } else if (this.bmi < categories[3]) {
+        bmiLineYouTag.html('Normalna waga');
+      } else if (this.bmi < categories[4]) {
+        bmiLineYouTag.html('Nadwaga');
+      } else if (this.bmi < categories[5]) {
+        bmiLineYouTag.html('Otyłość');
+      } else {
+        bmiLineYouTag.html('Ciężka otyłość');
+      }
 
-        if(this.bmi < categories[2]) {
-          bmiLineYouTag.html('Niedowaga');
-        } else if (this.bmi < categories[3]) {
-          bmiLineYouTag.html('Normalna waga');
-        } else if (this.bmi < categories[4]) {
-          bmiLineYouTag.html('Nadwaga');
-        } else if (this.bmi < categories[5]) {
-          bmiLineYouTag.html('Otyłość');
+      location = location - ($('.bmi-line-you-tag').width() / 12);
+      bmiLineYouTag.css('right', (location) + '%');
+      bmiLineYouTag.css('top', '2em');
+    },
+    getCategoriesForSexAndAge(sex, age) {
+      if (sex === 'female') {
+        if (age <= 24) {
+          return [16, 16, 19, 24, 29, 39, 42, 42]
+        } else if (age <= 34) {
+          return [17, 17, 20, 25, 30, 40, 43, 43]
+        } else if (age <= 44) {
+          return [18, 18, 21, 26, 31, 41, 44, 44]
+        } else if (age <= 54) {
+          return [19, 19, 22, 27, 32, 42, 45, 45]
+        } else if (age <= 64) {
+          return [20, 20, 23, 28, 33, 43, 46, 46]
         } else {
-          bmiLineYouTag.html('Ciężka otyłość');
+          return [21, 21, 24, 29, 34, 44, 47, 47]
         }
-
-        location = location - ($('.bmi-line-you-tag').width() / 12);
-        bmiLineYouTag.css('right', (location) + '%');
-        bmiLineYouTag.css('top', '2em');
-      },
-      getCategoriesForSexAndAge(sex, age) {
-        if (sex === 'female') {
-          if (age <= 24) {
-            return [16, 16, 19 ,24, 29, 39, 42, 42]
-          } else if (age <= 34) {
-            return [17, 17, 20, 25, 30, 40, 43, 43]
-          } else if (age <= 44) {
-            return [18, 18, 21, 26, 31, 41, 44, 44]
-          } else if (age <= 54) {
-            return [19, 19, 22, 27, 32, 42, 45, 45]
-          } else if (age <= 64) {
-            return [20, 20, 23, 28, 33, 43, 46, 46]
-          } else {
-            return [21, 21, 24, 29, 34, 44, 47, 47]
-          }
+      } else {
+        if (age <= 24) {
+          return [17, 17, 20, 25, 30, 40, 43, 43]
+        } else if (age <= 34) {
+          return [18, 18, 21, 26, 31, 41, 44, 44]
+        } else if (age <= 44) {
+          return [19, 19, 22, 27, 32, 42, 45, 45]
+        } else if (age <= 54) {
+          return [20, 20, 23, 28, 33, 43, 46, 46]
+        } else if (age <= 64) {
+          return [21, 21, 24, 29, 34, 44, 47, 47]
         } else {
-          if (age <= 24) {
-            return [17, 17, 20, 25, 30, 40, 43, 43]
-          } else if (age <= 34) {
-            return [18, 18, 21, 26, 31, 41, 44, 44]
-          } else if (age <= 44) {
-            return [19, 19, 22, 27, 32, 42, 45, 45]
-          } else if (age <= 54) {
-            return [20, 20, 23, 28, 33, 43, 46, 46]
-          } else if (age <= 64) {
-            return [21, 21, 24, 29, 34, 44, 47, 47]
-          } else {
-            return [22, 22, 25, 30, 35, 45, 48, 48]
-          }
+          return [22, 22, 25, 30, 35, 45, 48, 48]
         }
       }
     },
-    mounted() {
+  },
+  mounted() {
+    this.calculateBMI();
+    this.renderBmiLine();
+  },
+  watch: {
+    sex: function () {
       this.calculateBMI();
       this.renderBmiLine();
     },
-    watch: {
-      sex: function () {
-        this.calculateBMI();
-        this.renderBmiLine();
-      },
-      age: function () {
-        this.ageIsValid();
-        this.calculateBMI();
-        this.renderBmiLine();
-      },
-      height: function () {
-        this.heightIsValid();
-        this.calculateBMI();
-      },
-      weight: function () {
-        this.weightIsValid();
-        this.calculateBMI();
-      },
-    }
-  }
+    age: function () {
+      this.ageIsValid();
+      this.calculateBMI();
+      this.renderBmiLine();
+    },
+    height: function () {
+      this.heightIsValid();
+      this.calculateBMI();
+    },
+    weight: function () {
+      this.weightIsValid();
+      this.calculateBMI();
+    },
+  },
+}
 </script>
