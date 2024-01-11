@@ -79,13 +79,7 @@
             <div class="d-flex flex-row justify-content-center bmi-line-wrapper" style="position: relative;">
               <div class="bmi-line-you-tag text-nowrap" style="position: absolute;">Twój wynik</div>
               <div class="bmi-line bmi-line-result" style="background-color:#000000;position: absolute;"></div>
-              <div class="bmi-line bmi-line-1" style="background-color:#4DA1C4"></div>
-              <div class="bmi-line bmi-line-2" style="background-color:#4DA1C4"></div>
-              <div class="bmi-line bmi-line-3" style="background-color:#85C44D"></div>
-              <div class="bmi-line bmi-line-4" style="background-color:#C48D4D"></div>
-              <div class="bmi-line bmi-line-5" style="background-color:#C44D55"></div>
-              <div class="bmi-line bmi-line-6" style="background-color:#745557"></div>
-              <div class="bmi-line bmi-line-7" style="background-color:#745557"></div>
+              <div v-for="(line, index) in getBmiLineDetails()" :key="index" :class="line.class" :style="line.style"></div>
             </div>
           </div>
         </div>
@@ -191,6 +185,13 @@ export default {
         $('.bmi-line-result').hide();
       }
     },
+    getBmiLineDetails() {
+      let colors = ['#4DA1C4', '#4DA1C4', '#85C44D', '#C48D4D', '#C44D55', '#745557', '#745557'];
+      return colors.map((color, index) => ({
+            class: 'bmi-line bmi-line-' + index,
+            style: 'background-color:' + color,
+      }))
+    },
     renderBmiLine() {
       const widthLine = $('.bmi-line-wrapper').width();
       const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
@@ -204,7 +205,7 @@ export default {
         }
         let width = widthLine * ((to - from) / (max - min));
 
-        $('.bmi-line-' + (index + 1)).css('width', width + 'px');
+        $('.bmi-line-' + index).css('width', width + 'px');
       });
     },
     updateBmiTag() {
