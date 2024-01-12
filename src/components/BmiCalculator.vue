@@ -76,10 +76,10 @@
             <div class="bmi-result">{{ bmi ?? '-' }} BMI<span class="fs-6 text-danger" v-if="!sex"> (wybierz płeć)</span></div>
           </div>
           <div class="w-100">
-            <div class="d-flex flex-row justify-content-center bmi-line-wrapper" style="position: relative;">
-              <div class="bmi-line-you-tag text-nowrap" style="position: absolute;">Twój wynik</div>
-              <div class="bmi-line bmi-line-result" style="background-color:#000000;position: absolute;"></div>
-              <div v-for="(line, index) in getBmiLineDetails()" :key="index" :class="line.class" :style="line.style"></div>
+            <div class="d-flex flex-row justify-content-center bmi-line-wrapper" ref="bmiLine">
+              <div v-if="bmi !== null" class="bmi-line-you-tag text-nowrap" :style="bmiYouTagLocationStyle" ref="bmiYouTag">{{ bmiYouTagText }}</div>
+              <div v-if="bmi !== null" class="bmi-line bmi-line-result" :style="bmiLineResultLocationStyle" ref="bmiResult"></div>
+              <div v-for="(line, index) in bmiLineDetails" :key="index" :class="line.class" :style="line.style"></div>
             </div>
           </div>
         </div>
@@ -110,6 +110,7 @@
 }
 
 .bmi-line-wrapper {
+  position: relative;
   border-width: var(--default-border-width);
   border-color: var(--color-border);
   border-style: solid;
@@ -120,11 +121,14 @@
 }
 
 .bmi-line-result {
+  background-color: #000000;
+  position: absolute;
   width: 4px;
   transition: right 150ms ease-in-out 0s;
 }
 
 .bmi-line-you-tag {
+  position: absolute;
   background-color: var(--color-main-background);
   border-radius: var(--default-border-radius);
   border-width: var(--default-border-width);
@@ -149,6 +153,10 @@ export default {
       weight: 70,
       weightValid: true,
       bmi: null,
+      bmiLineDetails: [],
+      bmiYouTagText: '',
+      bmiYouTagLocationStyle: 'right:0%;top:2em;',
+      bmiLineResultLocationStyle: 'right:0%;',
     };
   },
   methods: {
@@ -176,108 +184,85 @@ export default {
     calculateBMI() {
       if (this.sex && this.ageValid && this.heightValid && this.weightValid) {
         this.bmi = Math.round(this.weight / ((this.height / 100) ** 2));
-        $('.bmi-line-you-tag').show();
-        $('.bmi-line-result').show();
-        this.updateBmiTag();
+        this.$nextTick(this.updateBmiTag);
       } else {
         this.bmi = null;
-        $('.bmi-line-you-tag').hide();
-        $('.bmi-line-result').hide();
       }
     },
-    getBmiLineDetails() {
+    calculateBmiLine() {
       let colors = ['#4DA1C4', '#4DA1C4', '#85C44D', '#C48D4D', '#C44D55', '#745557', '#745557'];
-      return colors.map((color, index) => ({
-            class: 'bmi-line bmi-line-' + index,
-            style: 'background-color:' + color,
-      }))
-    },
-    renderBmiLine() {
-      const widthLine = $('.bmi-line-wrapper').width();
+
+      const widthLine = this.$refs.bmiLine.clientWidth;
       const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
       const min = categories[0];
       const max = categories[categories.length - 1];
 
-      categories.forEach(function (from, index) {
+      return colors.map(function (color, index) {
+        let from = categories[index];
         let to = categories[index + 1];
-        if (!to) {
-          return;
-        }
         let width = widthLine * ((to - from) / (max - min));
 
-        $('.bmi-line-' + index).css('width', width + 'px');
+        return {
+          class: 'bmi-line bmi-line-' + index,
+          style: 'background-color:' + color + ';width:' + width + 'px',
+        };
       });
     },
+    updateBmiLine() {
+      this.bmiLineDetails = this.calculateBmiLine();
+    },
     updateBmiTag() {
-      const bmiLineYouTag = $('.bmi-line-you-tag');
-      const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
-      const min = categories[0];
-      const max = categories[categories.length - 1];
+      if (this.bmi !== null) {
+        const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
+        const min = categories[0];
+        const max = categories[categories.length - 1];
 
-      let location = Math.min(Math.max(100 - ((this.bmi - min) / (max - min) * 100), 0), 100);
-      $('.bmi-line-result').css('right', (location) + '%');
+        let location = Math.min(Math.max(100 - ((this.bmi - min) / (max - min) * 100), 0), 100);
+        this.bmiLineResultLocationStyle = 'right:' + location + '%;';
 
-      if (this.bmi < categories[2]) {
-        bmiLineYouTag.html('Niedowaga');
-      } else if (this.bmi < categories[3]) {
-        bmiLineYouTag.html('Normalna waga');
-      } else if (this.bmi < categories[4]) {
-        bmiLineYouTag.html('Nadwaga');
-      } else if (this.bmi < categories[5]) {
-        bmiLineYouTag.html('Otyłość');
-      } else {
-        bmiLineYouTag.html('Ciężka otyłość');
+        if (this.bmi < categories[2]) {
+          this.bmiYouTagText = 'Niedowaga';
+        } else if (this.bmi < categories[3]) {
+          this.bmiYouTagText = 'Normalna waga';
+        } else if (this.bmi < categories[4]) {
+          this.bmiYouTagText = 'Nadwaga';
+        } else if (this.bmi < categories[5]) {
+          this.bmiYouTagText = 'Otyłość';
+        } else {
+          this.bmiYouTagText = 'Ciężka otyłość';
+        }
+
+        location = location - (this.$refs.bmiYouTag.clientWidth / 12);
+        this.bmiYouTagLocationStyle = 'right:' + location + '%;top:2em;';
       }
-
-      location = location - ($('.bmi-line-you-tag').width() / 12);
-      bmiLineYouTag.css('right', (location) + '%');
-      bmiLineYouTag.css('top', '2em');
     },
     getCategoriesForSexAndAge(sex, age) {
-      if (sex === 'female') {
-        if (age <= 24) {
-          return [16, 16, 19, 24, 29, 39, 42, 42]
-        } else if (age <= 34) {
-          return [17, 17, 20, 25, 30, 40, 43, 43]
-        } else if (age <= 44) {
-          return [18, 18, 21, 26, 31, 41, 44, 44]
-        } else if (age <= 54) {
-          return [19, 19, 22, 27, 32, 42, 45, 45]
-        } else if (age <= 64) {
-          return [20, 20, 23, 28, 33, 43, 46, 46]
-        } else {
-          return [21, 21, 24, 29, 34, 44, 47, 47]
-        }
-      } else {
-        if (age <= 24) {
-          return [17, 17, 20, 25, 30, 40, 43, 43]
-        } else if (age <= 34) {
-          return [18, 18, 21, 26, 31, 41, 44, 44]
-        } else if (age <= 44) {
-          return [19, 19, 22, 27, 32, 42, 45, 45]
-        } else if (age <= 54) {
-          return [20, 20, 23, 28, 33, 43, 46, 46]
-        } else if (age <= 64) {
-          return [21, 21, 24, 29, 34, 44, 47, 47]
-        } else {
-          return [22, 22, 25, 30, 35, 45, 48, 48]
-        }
-      }
+      const ageRanges = [
+        { maxAge: 24, categories: { female: [16, 16, 19, 24, 29, 39, 42, 42], male: [17, 17, 20, 25, 30, 40, 43, 43] }},
+        { maxAge: 34, categories: { female: [17, 17, 20, 25, 30, 40, 43, 43], male: [18, 18, 21, 26, 31, 41, 44, 44] }},
+        { maxAge: 44, categories: { female: [18, 18, 21, 26, 31, 41, 44, 44], male: [19, 19, 22, 27, 32, 42, 45, 45] }},
+        { maxAge: 54, categories: { female: [19, 19, 22, 27, 32, 42, 45, 45], male: [20, 20, 23, 28, 33, 43, 46, 46] }},
+        { maxAge: 64, categories: { female: [20, 20, 23, 28, 33, 43, 46, 46], male: [21, 21, 24, 29, 34, 44, 47, 47] }},
+        { maxAge: Infinity, categories: { female: [21, 21, 24, 29, 34, 44, 47, 47], male: [22, 22, 25, 30, 35, 45, 48, 48] }},
+      ];
+
+      const gender = sex === 'female' ? 'female' : 'male';
+      return ageRanges.find(range => age <= range.maxAge).categories[gender];
     },
   },
   mounted() {
     this.calculateBMI();
-    this.renderBmiLine();
+    this.updateBmiLine();
   },
   watch: {
     sex: function () {
       this.calculateBMI();
-      this.renderBmiLine();
+      this.updateBmiLine();
     },
     age: function () {
       this.ageIsValid();
       this.calculateBMI();
-      this.renderBmiLine();
+      this.updateBmiLine();
     },
     height: function () {
       this.heightIsValid();
