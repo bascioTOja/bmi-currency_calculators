@@ -1,5 +1,26 @@
-# bmi-currency_calcualtors
-This is a simple website I created for a college project. The site was first written in jQuery, but later switched to Vue. The site is in Polish and has two main tools: one to help you find out your Body Mass Index (BMI), and another to help you convert money from PLN to another currency using NBP (National Bank of Poland) API.
+# BMI & Currency calculators
+
+## Overview
+
+This repo is a simple website with two main functions: BMI (Body Mass Index) calculator and a currency converter that converts PLN to various other currencies. The currency conversion rates are fetched from the NBP (National Bank of Poland) API. The web application is written in Vue 3 and localized in Polish.
+
+## Live Demo
+
+Live version here: [Calculators Webpage](https://bascio.usermd.net)
+
+# Screenshots
+
+### BMI Calculator Tab
+![BMI Calculator Tab screenshot](https://bascio.usermd.net/readme_assets/bmi-currency_calcualtors/tab_bmi.png)
+
+### Currency Converter Tab
+![Currency Converter Tab screenshot](https://bascio.usermd.net/readme_assets/bmi-currency_calcualtors/tab_currencies.png)
+
+## Features
+
+- **BMI Calculator**: This tool allows users to enter their weight, height, gender and age to calculate their Body Mass Index. After providing the necessary information, the BMI is displayed numerically and positioned within a BMI range scale to help users better understand their result in the context of health standards.
+- **Currency Converter**: This feature allows users to convert amounts from PLN to various other currencies. Up-to-date exchange rates get directly from the NBP (National Bank of Poland) API.
+
 
 ## Project Setup
 
@@ -18,3 +39,11 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## API Reference
+
+This application uses the NBP API to retrieve currency exchange rates. You can learn more about the API [here](http://api.nbp.pl/).
+
+## Localization
+
+The application is entirely in Polish because I study in Polish :}
