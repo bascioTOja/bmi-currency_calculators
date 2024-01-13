@@ -46,4 +46,4 @@ This application uses the NBP API to retrieve currency exchange rates. You can l
 
 ## Localization
 
-The application is entirely in Polish because I study in Polish :}
+The site is entirely in Polish because I study in Polish :}
