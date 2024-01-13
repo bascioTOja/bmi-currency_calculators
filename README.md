@@ -2,11 +2,11 @@
 
 ## Overview
 
-This repo is a simple website with two main functions: BMI (Body Mass Index) calculator and a currency converter that converts PLN to various other currencies. The currency conversion rates are fetched from the NBP (National Bank of Poland) API. The web application is written in Vue 3 and localized in Polish.
+This repository contains a simple website with two main functions: BMI (Body Mass Index) calculator, and a currency converter converts PLN to various other currencies. The currency conversion rates are fetched from the NBP (National Bank of Poland) API. The web application is written in Vue 3 and localized in Polish.
 
 ## Live Demo
 
-Live version here: [Calculators Webpage](https://bascio.usermd.net)
+Live version here: [BMI & Currency calculators](https://bascio.usermd.net)
 
 # Screenshots
 
