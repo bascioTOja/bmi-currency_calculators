@@ -77,8 +77,8 @@
           </div>
           <div class="w-100">
             <div class="d-flex flex-row justify-content-center bmi-line-wrapper" ref="bmiLine">
-              <div v-if="bmi !== null" class="bmi-line-you-tag text-nowrap" :style="bmiYouTagLocationStyle" ref="bmiYouTag">{{ bmiYouTagText }}</div>
-              <div v-if="bmi !== null" class="bmi-line bmi-line-result" :style="bmiLineResultLocationStyle" ref="bmiResult"></div>
+              <div v-if="bmi !== null" class="bmi-line-you-tag text-nowrap" :style="{ 'right' : bmiYouTagLocation + '%' }" ref="bmiYouTag">{{ bmiYouTagText }}</div>
+              <div v-if="bmi !== null" class="bmi-line bmi-line-result" :style="{ 'right' : bmiLineResultLocation + '%' }" ref="bmiResult"></div>
               <div v-for="(line, index) in bmiLineDetails" :key="index" :class="line.class" :style="line.style"></div>
             </div>
           </div>
@@ -87,58 +87,6 @@
     </div>
   </div>
 </template>
-
-<style>
-.sex-button {
-  border-radius: var(--default-border-radius);
-  border-width: var(--default-border-width);
-  border-color: var(--color-border);
-  border-style: dashed;
-  padding: 15px 5px;
-  color: var(--color-main-text);
-  margin: 6px;
-  width: calc(50% - 12px);
-}
-
-.btn-outline-secondary {
-  --bs-btn-active-bg: var(--green);
-}
-
-.bmi-result {
-  font-size: 4em;
-  margin-left: 20px;
-}
-
-.bmi-line-wrapper {
-  position: relative;
-  border-width: var(--default-border-width);
-  border-color: var(--color-border);
-  border-style: solid;
-}
-
-.bmi-line {
-  height: 25px
-}
-
-.bmi-line-result {
-  background-color: #000000;
-  position: absolute;
-  width: 4px;
-  transition: right 150ms ease-in-out 0s;
-}
-
-.bmi-line-you-tag {
-  position: absolute;
-  background-color: var(--color-main-background);
-  border-radius: var(--default-border-radius);
-  border-width: var(--default-border-width);
-  border-color: var(--color-border);
-  padding-left: 5px;
-  padding-right: 5px;
-  border-style: dashed;
-  transition: right 150ms ease-in-out 0s;
-}
-</style>
 
 <script>
 export default {
@@ -155,8 +103,8 @@ export default {
       bmi: null,
       bmiLineDetails: [],
       bmiYouTagText: '',
-      bmiYouTagLocationStyle: 'right:0%;top:2em;',
-      bmiLineResultLocationStyle: 'right:0%;',
+      bmiYouTagLocation: 50,
+      bmiLineResultLocation: 50,
     };
   },
   methods: {
@@ -218,7 +166,7 @@ export default {
         const max = categories[categories.length - 1];
 
         let location = Math.min(Math.max(100 - ((this.bmi - min) / (max - min) * 100), 0), 100);
-        this.bmiLineResultLocationStyle = 'right:' + location + '%;';
+        this.bmiLineResultLocation = location;
 
         if (this.bmi < categories[2]) {
           this.bmiYouTagText = 'Niedowaga';
@@ -232,8 +180,7 @@ export default {
           this.bmiYouTagText = 'Ciężka otyłość';
         }
 
-        location = location - (this.$refs.bmiYouTag.clientWidth / 12);
-        this.bmiYouTagLocationStyle = 'right:' + location + '%;top:2em;';
+        this.bmiYouTagLocation = location - (this.$refs.bmiYouTag.clientWidth / 12);
       }
     },
     getCategoriesForSexAndAge(sex, age) {
@@ -275,3 +222,56 @@ export default {
   },
 }
 </script>
+
+<style>
+.sex-button {
+  border-radius: var(--default-border-radius);
+  border-width: var(--default-border-width);
+  border-color: var(--color-border);
+  border-style: dashed;
+  padding: 15px 5px;
+  color: var(--color-main-text);
+  margin: 6px;
+  width: calc(50% - 12px);
+}
+
+.btn-outline-secondary {
+  --bs-btn-active-bg: var(--green);
+}
+
+.bmi-result {
+  font-size: 4em;
+  margin-left: 20px;
+}
+
+.bmi-line-wrapper {
+  position: relative;
+  border-width: var(--default-border-width);
+  border-color: var(--color-border);
+  border-style: solid;
+}
+
+.bmi-line {
+  height: 25px
+}
+
+.bmi-line-result {
+  position: absolute;
+  background-color: #000000;
+  width: 4px;
+  transition: right 150ms ease-in-out 0s;
+}
+
+.bmi-line-you-tag {
+  position: absolute;
+  top: 2em;
+  background-color: var(--color-main-background);
+  border-radius: var(--default-border-radius);
+  border-width: var(--default-border-width);
+  border-color: var(--color-border);
+  padding-left: 5px;
+  padding-right: 5px;
+  border-style: dashed;
+  transition: right 150ms ease-in-out 0s;
+}
+</style>
