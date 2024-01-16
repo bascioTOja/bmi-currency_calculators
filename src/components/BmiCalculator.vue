@@ -107,38 +107,35 @@ export default {
         location: 50,
         markerLocation: 50,
       },
-
     };
   },
   methods: {
+    isValidNumber(value, min, max) {
+      return min <= value && value <= max;
+    },
     ageIsValid() {
-      const max = 80;
-      const min = 18;
-
-      this.ageValid = this.age && min <= this.age && this.age <= max;
+      const ageRange = { min: 18, max: 80 };
+      this.ageValid = this.isValidNumber(this.age, ageRange.min, ageRange.max);
       return this.ageValid;
     },
     heightIsValid() {
-      const max = 220;
-      const min = 130;
-
-      this.heightValid = this.height && min <= this.height && this.height <= max;
+      const heightRange = { min: 130, max: 220 };
+      this.heightValid = this.isValidNumber(this.height, heightRange.min, heightRange.max);
       return this.heightValid;
     },
     weightIsValid() {
-      const max = 250;
-      const min = 30;
-
-      this.weightValid = this.weight && min <= this.weight && this.weight <= max
+      const weightRange = { min: 30, max: 250 };
+      this.weightValid = this.isValidNumber(this.weight, weightRange.min, weightRange.max);
       return this.weightValid;
     },
     calculateBMI() {
-      if (this.sex && this.ageValid && this.heightValid && this.weightValid) {
-        this.bmi = Math.round(this.weight / ((this.height / 100) ** 2));
-        this.$nextTick(this.updateBmiTag);
-      } else {
+      if (!this.sex || !this.ageValid || !this.heightValid || !this.weightValid) {
         this.bmi = null;
+        return;
       }
+
+      this.bmi = Math.round(this.weight / ((this.height / 100) ** 2));
+      this.$nextTick(this.updateBmiTag);
     },
     calculateBmiLine() {
       const colors = ['#4DA1C4', '#4DA1C4', '#85C44D', '#C48D4D', '#C44D55', '#745557', '#745557'];
