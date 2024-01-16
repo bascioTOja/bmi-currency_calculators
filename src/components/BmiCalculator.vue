@@ -141,17 +141,16 @@ export default {
       }
     },
     calculateBmiLine() {
-      let colors = ['#4DA1C4', '#4DA1C4', '#85C44D', '#C48D4D', '#C44D55', '#745557', '#745557'];
-
+      const colors = ['#4DA1C4', '#4DA1C4', '#85C44D', '#C48D4D', '#C44D55', '#745557', '#745557'];
       const widthLine = this.$refs.bmiLine.clientWidth;
       const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
       const min = categories[0];
       const max = categories[categories.length - 1];
 
-      return colors.map(function (color, index) {
-        let from = categories[index];
-        let to = categories[index + 1];
-        let width = widthLine * ((to - from) / (max - min));
+      return categories.slice(0, -1).map((from, index) => {
+        const to = categories[index + 1];
+        const proportion = (to - from) / (max - min);
+        const width = widthLine * proportion;
 
         return {
           class: `bmi-line bmi-line-${index}`,
