@@ -35,7 +35,9 @@
             </div>
             <div class="row mb-3">
               <div class="col-12">
-                <button class="btn btn-primary w-100" @click="convertCurrency()">Przelicz na {{ getSelectedCurrencyName() }}</button>
+                <button class="btn btn-primary w-100" @click="convertCurrency()">
+                  Przelicz na {{ getSelectedCurrencyName() }}
+                </button>
               </div>
             </div>
             <div class="row">
@@ -123,10 +125,20 @@ export default {
         }
         const xmlResponse = await response.text();
         const parser = new DOMParser();
-        const xmlData = parser.parseFromString(xmlResponse, "application/xml");
-        currency.bid = parseFloat(xmlData.getElementsByTagName("Bid")[0].textContent);
-        currency.ask = parseFloat(xmlData.getElementsByTagName("Ask")[0].textContent);
-        currency.effectiveDate = xmlData.getElementsByTagName("EffectiveDate")[0].textContent;
+        const xmlDoc = parser.parseFromString(xmlResponse, "application/xml");
+
+        const bidNode = xmlDoc.getElementsByTagName("Bid")[0];
+        currency.bid = bidNode ? parseFloat(bidNode.textContent) : null;
+
+        const askNode = xmlDoc.getElementsByTagName("Ask")[0];
+        currency.ask = askNode ? parseFloat(askNode.textContent) : null;
+
+        const effectiveDateNode = xmlDoc.getElementsByTagName("EffectiveDate")[0];
+        currency.effectiveDate = effectiveDateNode ? effectiveDateNode.textContent : null;
+
+        if (currency.bid === null || currency.ask === null || currency.effectiveDate === null) {
+          throw new Error('Some currency data could not be parsed.');
+        }
       } catch (error) {
         console.error('Error fetching the currency data:', error);
       }

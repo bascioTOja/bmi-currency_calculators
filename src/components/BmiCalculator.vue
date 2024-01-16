@@ -76,9 +76,17 @@
             <div class="bmi-result">{{ bmi ?? '-' }} BMI<span class="fs-6 text-danger" v-if="!sex"> (wybierz płeć)</span></div>
           </div>
           <div class="w-100">
-            <div class="d-flex flex-row justify-content-center bmi-line-wrapper" ref="bmiLine">
-              <div v-if="bmi !== null" class="bmi-line-you-tag text-nowrap" :style="{ 'right' : bmiTag.location + '%' }" ref="bmiYouTag">{{ bmiTag.text }}</div>
-              <div v-if="bmi !== null" class="bmi-line bmi-line-result" :style="{ 'right' : bmiTag.markerLocation + '%' }" ref="bmiResult"></div>
+            <div ref="bmiLine" class="d-flex flex-row justify-content-center bmi-line-wrapper">
+              <div v-if="bmi !== null"
+                   ref="bmiYouTag"
+                   :style="{ 'right' : bmiTag.location + '%' }"
+                   class="bmi-line-you-tag text-nowrap">
+                {{ bmiTag.text }}
+              </div>
+              <div v-if="bmi !== null"
+                   ref="bmiResult"
+                   :style="{ 'right' : bmiTag.markerLocation + '%' }"
+                   class="bmi-line bmi-line-result"></div>
               <div v-for="(line, index) in bmiLineDetails" :key="index" :class="line.class" :style="line.style"></div>
             </div>
           </div>
@@ -114,22 +122,25 @@ export default {
       return min <= value && value <= max;
     },
     ageIsValid() {
-      const ageRange = { min: 18, max: 80 };
+      const ageRange = {min: 18, max: 80};
       this.ageValid = this.isValidNumber(this.age, ageRange.min, ageRange.max);
       return this.ageValid;
     },
     heightIsValid() {
-      const heightRange = { min: 130, max: 220 };
+      const heightRange = {min: 130, max: 220};
       this.heightValid = this.isValidNumber(this.height, heightRange.min, heightRange.max);
       return this.heightValid;
     },
     weightIsValid() {
-      const weightRange = { min: 30, max: 250 };
+      const weightRange = {min: 30, max: 250};
       this.weightValid = this.isValidNumber(this.weight, weightRange.min, weightRange.max);
       return this.weightValid;
     },
+    isInputValid() {
+      return this.sex && this.ageValid && this.heightValid && this.weightValid;
+    },
     calculateBMI() {
-      if (!this.sex || !this.ageValid || !this.heightValid || !this.weightValid) {
+      if (!this.isInputValid()) {
         this.bmi = null;
         return;
       }
@@ -139,7 +150,7 @@ export default {
     },
     calculateBmiLine() {
       const colors = ['#4DA1C4', '#4DA1C4', '#85C44D', '#C48D4D', '#C44D55', '#745557', '#745557'];
-      const widthLine = this.$refs.bmiLine.clientWidth;
+      const widthLine = this.$refs.bmiLine?.clientWidth || 0;
       const categories = this.getCategoriesForSexAndAge(this.sex, this.age);
       const min = categories[0];
       const max = categories[categories.length - 1];
@@ -178,22 +189,21 @@ export default {
         {maxRange: Infinity, text: 'Ciężka otyłość'},
       ];
 
-      this.bmiTag.text =  bmiLabels.find((range) => this.bmi <= range.maxRange).text;
+      this.bmiTag.text = bmiLabels.find((range) => this.bmi <= range.maxRange).text;
 
       this.$nextTick(() => this.bmiTag.location = this.bmiTag.markerLocation - (this.$refs.bmiYouTag.clientWidth / 12));
     },
     getCategoriesForSexAndAge(sex, age) {
       const ageRanges = [
-        { maxAge: 24, categories: { female: [16, 16, 19, 24, 29, 39, 42, 42], male: [17, 17, 20, 25, 30, 40, 43, 43] }},
-        { maxAge: 34, categories: { female: [17, 17, 20, 25, 30, 40, 43, 43], male: [18, 18, 21, 26, 31, 41, 44, 44] }},
-        { maxAge: 44, categories: { female: [18, 18, 21, 26, 31, 41, 44, 44], male: [19, 19, 22, 27, 32, 42, 45, 45] }},
-        { maxAge: 54, categories: { female: [19, 19, 22, 27, 32, 42, 45, 45], male: [20, 20, 23, 28, 33, 43, 46, 46] }},
-        { maxAge: 64, categories: { female: [20, 20, 23, 28, 33, 43, 46, 46], male: [21, 21, 24, 29, 34, 44, 47, 47] }},
-        { maxAge: Infinity, categories: { female: [21, 21, 24, 29, 34, 44, 47, 47], male: [22, 22, 25, 30, 35, 45, 48, 48] }},
+        {maxAge: 24, categories: {female: [16, 16, 19, 24, 29, 39, 42, 42], male: [17, 17, 20, 25, 30, 40, 43, 43]}},
+        {maxAge: 34, categories: {female: [17, 17, 20, 25, 30, 40, 43, 43], male: [18, 18, 21, 26, 31, 41, 44, 44]}},
+        {maxAge: 44, categories: {female: [18, 18, 21, 26, 31, 41, 44, 44], male: [19, 19, 22, 27, 32, 42, 45, 45]}},
+        {maxAge: 54, categories: {female: [19, 19, 22, 27, 32, 42, 45, 45], male: [20, 20, 23, 28, 33, 43, 46, 46]}},
+        {maxAge: 64, categories: {female: [20, 20, 23, 28, 33, 43, 46, 46], male: [21, 21, 24, 29, 34, 44, 47, 47]}},
+        {maxAge: Infinity, categories: {female: [21, 21, 24, 29, 34, 44, 47, 47], male: [22, 22, 25, 30, 35, 45, 48, 48]}},
       ];
 
-      const gender = sex === 'female' ? 'female' : 'male';
-      return ageRanges.find((range) => age <= range.maxAge).categories[gender];
+      return ageRanges.find((range) => age <= range.maxAge).categories[sex === 'female' ? 'female' : 'male'];
     },
   },
   mounted() {
