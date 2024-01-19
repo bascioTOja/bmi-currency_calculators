@@ -23,7 +23,7 @@
               </div>
               <div class="col-4 text-center d-flex align-items-center">
                 <div class="w-100">
-                  <div class="input-group mb-3">
+                  <div class="input-group mb-2">
                     <input id="age" v-model="age" class="form-control" max="80" min="18" name="age" type="number">
                     <span class="input-group-text">lat</span>
                   </div>
@@ -37,7 +37,7 @@
               </div>
               <div class="col-4 text-center d-flex align-items-center">
                 <div class="w-100">
-                  <div class="input-group mb-3">
+                  <div class="input-group mb-2">
                     <input id="height" v-model="height" class="form-control" max="220" min="130" name="height" type="number">
                     <span class="input-group-text">cm</span>
                   </div>
@@ -51,7 +51,7 @@
               </div>
               <div class="col-4 text-center d-flex align-items-center">
                 <div class="w-100">
-                  <div class="input-group mb-3">
+                  <div class="input-group mb-2">
                     <input id="weight" v-model="weight" class="form-control" max="250" min="30" name="weight" type="number">
                     <span class="input-group-text">kg</span>
                   </div>
